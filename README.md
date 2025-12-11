@@ -1,9 +1,9 @@
 # github-approve-shortcut
-Chrome extension that binds `cmd+shift+a` to approve a PR
+Chrome extension that binds `cmd+shift+x` to approve a PR
 
 ### Usage
 
-On a Github PR page, press `cmd+shift+a` to approve the PR
+On a Github PR page, press `cmd+shift+x` to approve the PR
 
 ### Installation
 

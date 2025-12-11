@@ -5,11 +5,6 @@ const approvalButton = 'form[action*="/reviews"] button[type="submit"]'
 const approvalComment = 'form[action*="/reviews"] #pull_request_review_body'
 const sessionStorageTrigger = 'github-approve-shortcut-triggered'
 
-let shiftDown = false
-let controlDown = false
-let altDown = false
-let commandDown = false
-
 const debug = (message, object = null) => {
   const debugEnabled = localStorage.getItem('github-approve-shortcut-debug')
   if(debugEnabled === 'true') {
@@ -20,58 +15,13 @@ const debug = (message, object = null) => {
 }
 
 document.addEventListener("keydown", (event) =>{
-  debug(">>> keydown", { keyCode: event.keyCode })
-  // shift === 16
-  if(event.keyCode === 16) {
-    debug("  shift pressed")
-    shiftDown = true
-  }
-  // control === 17
-  if(event.keyCode === 17) {
-    debug("  control pressed")
-    controlDown = true
-  }
-  // alt === 18
-  if(event.keyCode === 18) {
-    debug("  alt pressed")
-    altDown = true
-  }
-  // command === 93
-  if(event.keyCode === 93) {
-    debug("  command pressed")
-    commandDown = true
-  }
-  // a === 65
-  if(event.keyCode === 65 && shiftDown && controlDown && altDown && commandDown) {
-    debug("  shift+control+alt+command+a pressed")
+  debug(">>> keydown", { keyCode: event.keyCode, metaKey: event.metaKey, shiftKey: event.shiftKey })
+  // x === 88, check for cmd+shift+x using metaKey (Command key) and shiftKey
+  if(event.keyCode === 88 && event.metaKey && event.shiftKey && !event.ctrlKey && !event.altKey) {
+    debug("  cmd+shift+x pressed")
     event.preventDefault()
     event.stopPropagation()
     openReviewDialog()
-  }
-  debug("<<<")
-})
-
-document.addEventListener("keyup", (event) =>{
-  debug(">>> keyUp", { keyCode: event.keyCode })
-  // shift === 16
-  if(event.keyCode === 16) {
-    debug("  shift released")
-    shiftDown = false
-  }
-  // control === 17
-  if(event.keyCode === 17) {
-    debug("  control released")
-    controlDown = false
-  }
-  // alt === 18
-  if(event.keyCode === 18) {
-    debug("  alt released")
-    altDown = false
-  }
-  // command === 93
-  if(event.keyCode === 93) {
-    debug("  command released")
-    commandDown = false
   }
   debug("<<<")
 })
